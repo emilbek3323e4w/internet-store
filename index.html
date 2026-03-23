@@ -19,9 +19,9 @@
 
     <nav class="nav-links">
 
-        <a href="#">
+        <a href="#" id="nav-cart">
             <img src="./images/Group.svg" alt="Shopping cart">
-            1205 <span>₽</span>
+            <span id="cart-price">0</span>
         </a>
 
         <a href="#">
@@ -52,9 +52,41 @@
     <div id="loading-message" class="loading-message">Загрузка...</div>
     <div id="error-message" class="error-message">Что-то пошло не так</div>
 
-  </div>
-
    </main>
+
+   <div id="cart-overlay" class="cart-overlay"></div>
+
+   <div id="cart-sidebar" class="cart-sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h2>Корзина</h2>
+                <button id="close-sidebar" class="close-btn">✕</button>
+            </div>
+            <div id="cart-items-list" class="cart-items-list">
+                <div id="empty-cart" class="empty-cart">
+                    <img src="./images/cardboard.png" class="empty-cart-image">
+                    <h3>Корзина пустая</h3>
+                    <p>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
+                    <button id="back-btn" class="back-btn">← Вернуться назад</button>
+                </div>
+            </div>
+            
+            <div id="sidebar-footer" class="sidebar-footer">
+                <div id="sidebar-footer-total" class="footer-row">
+                    <span>Итого:</span>
+                    <span class="dots"></span>
+                    <span id="sidebar-total">0</span> ₽
+                </div>
+                <div id="sidebar-footer-tax" class="footer-row">
+                    <span>Налог 5%:</span>
+                    <span class="dots"></span>
+                    <span id="sidebar-tax">0</span> ₽
+                </div>
+                <button class="checkout-btn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
