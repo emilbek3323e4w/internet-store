@@ -1,6 +1,11 @@
 let allProducts = []; 
 let cartItems = [];
 
+const savedCart = localStorage.getItem('cartItems');
+if (savedCart) {
+    cartItems = JSON.parse(savedCart);
+}
+
 const cardWrapper = document.querySelector('.card-wrapper')
 const loadingMessage = document.getElementById('loading-message')
 const errorMessage = document.getElementById('error-message')
@@ -45,12 +50,12 @@ function renderProducts(products){
         products.forEach(product => {
             const card = document.createElement('div');
             card.className = 'card'
-
+ 
             const price = (product.price * 100).toLocaleString('ru-RU') + ' руб. ';
             const title = product.title.length > 50
             ? product.title.substring(0,50) + '...'
             : product.title
-
+ 
             card.innerHTML = `
             <div class="card-content">
             <img src="${product.image}" alt="${product.title}" class="card-img">
@@ -66,32 +71,38 @@ function renderProducts(products){
                 </div>
                 </div>
         `;
-
+ 
             cardWrapper.appendChild(card);
             
-            card.querySelector('.card-btn').addEventListener('click', () => {
-            const btn = card.querySelector('.card-btn');
-            btn.classList.toggle('active');
-    
-            const isActive = btn.classList.contains('active');
-            const existing = cartItems.find(item => item.id === product.id);
-    
-        if (isActive) {
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                product.quantity = 1;
-                cartItems.push(product);
-            }
-        } else {
-            removeFromCart(product.id);
-        }
-    
-    updateCartDisplay(cartItems);
-});
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('card-btn') || e.target.closest('.card-btn')) {
+                    const btn = card.querySelector('.card-btn');
+                    btn.classList.toggle('active');
+                    
+                    const isActive = btn.classList.contains('active');
+                    const existing = cartItems.find(item => item.id === product.id);
+                    
+                    if (isActive) {
+                        if (existing) {
+                            existing.quantity += 1;
+                        } else {
+                            product.quantity = 1;
+                            cartItems.push(product);
+                        }
+                    } else {
+                        removeFromCart(product.id);
+                    }
+                    
+                    updateCartDisplay(cartItems);
+                } else {
+                    const link = `product-details.html?id=${product.id}`;
+                    window.location.href = link;
+                }
+            });
         });
     }
 }
+
 
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', (e) => {
@@ -121,6 +132,8 @@ function updateCartDisplay(cartItems){
     sidebarTax.textContent = taxPrice;
 
     displayCartItems();
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
 function renderCartItems() {
@@ -246,4 +259,5 @@ if (backBtn) {
 document.addEventListener('DOMContentLoaded', () => {
     getProducts();
     displayCartItems();
+    updateCartDisplay(cartItems);
 });

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+    <div class="logo-title">
+        <img src="./images/image 4.png" alt="Kross Store logo" class="image-logo">
+        <div class="name-desc">
+            <h1>KROSS STORE</h1>
+            <p>Магазин лучших кроссовок</p>
+        </div>
+    </div>
+
+    <nav class="nav-links">
+        <a href="index.html">
+            Back to Store
+        </a>
+    </nav>
+</header>
+    
+<main class="product-details-main">
+    <div id="product-container" class="product-container">
+        <img id="product-image" src="" alt="" class="product-image">
+        <div class="product-info">
+            <h1 id="product-title" class="product-title"></h1>
+            <p id="product-price" class="product-price"></p>
+            <button class="add-to-cart-btn" onclick="addToCartFromDetails(window.currentProduct)">Add to Cart</button>>
+        </div>
+    </div>
+</main>
+
+    <script src="product-details.js"></script>
+</body>
+</html>
